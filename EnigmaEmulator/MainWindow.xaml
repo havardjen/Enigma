@@ -1,0 +1,45 @@
+﻿<Window x:Class="EnigmaEmulator.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:uc="clr-namespace:EnigmaEmulator.UserControls"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <DockPanel LastChildFill="False">
+        <uc:ucRotorSelector DockPanel.Dock="Top" />
+        <uc:ucKeyboard x:Name="keyboard"
+                       Visibility="{Binding KeyboardVisibility}"
+                       DockPanel.Dock="Top"
+                       Margin="0 15 0 15"/>
+        <TextBlock Text="Skriv inn tekst:" 
+                   DockPanel.Dock="Top"
+                   Visibility="{Binding AdvancedVisibility}" />
+        <TextBox Height="50"
+                 TextWrapping="Wrap"
+                 HorizontalAlignment="Stretch"
+                 DockPanel.Dock="Top"
+                 Text="{Binding OriginalMessage, Mode=TwoWay}"
+                 IsReadOnly="{Binding OriginalMessageGUIReadOnly}" />
+        <Button Content="Kode/Dekode innhold"
+                DockPanel.Dock="Top"
+                HorizontalAlignment="Center"
+                Margin="0 5 0 5"
+                Command="{Binding CodeDecodeMessageCommand}"
+                Visibility="{Binding AdvancedVisibility}" />
+        <StackPanel Orientation="Vertical"
+                    DockPanel.Dock="Top"
+                    HorizontalAlignment="Stretch">
+            <TextBlock Text="Resultat:" />
+            <TextBox Text="{Binding CodedDecodedMessage}"
+                     IsReadOnly="True"/>
+        </StackPanel>
+
+        <StackPanel DockPanel.Dock="Bottom"
+                    Orientation="Horizontal">
+            <CheckBox Content="Aktivèr avansert"
+                      IsChecked="{Binding AdvancedIsChecked, Mode=TwoWay}"
+                      Margin="5 0 0 5" />
+        </StackPanel>
+    </DockPanel>
+</Window>

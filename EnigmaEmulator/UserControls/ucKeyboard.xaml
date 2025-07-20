@@ -1,0 +1,79 @@
+﻿<UserControl x:Class="EnigmaEmulator.UserControls.ucKeyboard"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             mc:Ignorable="d">
+    <UserControl.Resources>
+        <Style TargetType="Button">
+            <Setter Property="Template" Value="{StaticResource OldTypewriterKeyTemplate}" />
+            <Setter Property="Margin" Value="0 0 5 0" />
+        </Style>
+    </UserControl.Resources>
+    
+    <DockPanel LastChildFill="False">
+        <StackPanel DockPanel.Dock="Bottom"
+                    Orientation="Horizontal">
+            <Button x:Name="btnP"
+                    Content="P" />
+            <Button x:Name="btnY"
+                    Content="Y" />
+            <Button x:Name="btnX"
+                    Content="X" />
+            <Button x:Name="btnC"
+                    Content="C" />
+            <Button x:Name="btnV"
+                    Content="V" />
+            <Button x:Name="btnB"
+                    Content="B" />
+            <Button x:Name="btnN"
+                    Content="N" />
+            <Button x:Name="btnM"
+                    Content="M" />
+            <Button x:Name="btnL"
+                    Content="L" />
+        </StackPanel>
+        <StackPanel DockPanel.Dock="Bottom"
+                    Orientation="Horizontal"
+                    Margin="15 0 0 0">
+            <Button x:Name="btnA"
+                    Content="A" />
+            <Button x:Name="btnS"
+                    Content="S" />
+            <Button x:Name="btnD"
+                    Content="D" />
+            <Button x:Name="btnF"
+                    Content="F" />
+            <Button x:Name="btnG"
+                    Content="G" />
+            <Button x:Name="btnH"
+                    Content="H" />
+            <Button x:Name="btnJ"
+                    Content="J" />
+            <Button x:Name="btnK"
+                    Content="K" />
+        </StackPanel>
+        <StackPanel DockPanel.Dock="Bottom"
+                    Orientation="Horizontal"
+                    Margin="7 0 0 0">
+            <Button x:Name="btnQ"
+                    Content="Q" />
+            <Button x:Name="btnW"
+                    Content="W" />
+            <Button x:Name="btnE"
+                    Content="E" />
+            <Button x:Name="btnR"
+                    Content="R" />
+            <Button x:Name="btnT"
+                    Content="T" />
+            <Button x:Name="btnZ"
+                    Content="Z" />
+            <Button x:Name="btnU"
+                    Content="U" />
+            <Button x:Name="btnI"
+                    Content="I" />
+            <Button x:Name="btnO"
+                    Content="O" />
+        </StackPanel>
+    </DockPanel>
+</UserControl>

@@ -1,0 +1,82 @@
+﻿<UserControl x:Class="EnigmaEmulator.UserControls.ucRotorSelector"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:EnigmaEmulator.UserControls"
+             mc:Ignorable="d">
+    <StackPanel Orientation="Horizontal"
+                HorizontalAlignment="Left">
+        <StackPanel.Resources>
+            <Style TargetType="Label">
+                <Setter Property="Width" Value="75" />
+            </Style>
+            <Style TargetType="ComboBox">
+                <Setter Property="Width" Value="40" />
+                <Setter Property="HorizontalAlignment" Value="Right"/>
+                <Setter Property="Margin" Value="2 0 2 0" />
+            </Style>
+            <Style TargetType="StackPanel">
+                <Setter Property="Margin" Value="0 2 0 0" />
+                <Setter Property="HorizontalAlignment" Value="Right" />
+            </Style>
+        </StackPanel.Resources>
+        <StackPanel Orientation="Vertical">
+            <Label x:Name="lblRotor3" Content="Rotor 3:" />
+            <ComboBox x:Name="cboRotor3"
+                      ItemsSource="{Binding Rotors}"
+                      SelectedIndex="{Binding SelectedRotor3Index, Mode=TwoWay}"
+                      Width="75"/>
+            <StackPanel Orientation="Horizontal">
+                <Label Content="Ringstellung:" />
+                <ComboBox ItemsSource="{Binding Alphabet}"
+                          SelectedIndex="{Binding Rotor3RingStellung, Mode=TwoWay}"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <Label Content="Posisjon:" />
+                <ComboBox ItemsSource="{Binding Alphabet}"
+                          SelectedIndex="{Binding Rotor3Position, Mode=TwoWay}" />
+            </StackPanel>
+        </StackPanel>
+        <StackPanel Orientation="Vertical">
+            <Label x:Name="lblRotor2" Content="Rotor 2:" />
+            <ComboBox x:Name="cboRotor2"
+                      ItemsSource="{Binding Rotors}"
+                      SelectedIndex="{Binding SelectedRotor2Index, Mode=TwoWay}"
+                      Width="75" />
+            <StackPanel Orientation="Horizontal">
+                <Label Content="Ringstellung:" />
+                <ComboBox ItemsSource="{Binding Alphabet}"
+                          SelectedIndex="{Binding Rotor2RingStellung, Mode=TwoWay}" />
+            </StackPanel>
+            <StackPanel Orientation="Horizontal"
+                        Margin="0"
+                        HorizontalAlignment="Stretch">
+                <Label Content="Posisjon:" />
+                <ComboBox ItemsSource="{Binding Alphabet}"
+                          SelectedIndex="{Binding Rotor2Position, Mode=TwoWay}" />
+            </StackPanel>
+        </StackPanel>
+        <StackPanel Orientation="Vertical">
+            <Label x:Name="lblRotor1" Content="Rotor 1:" />
+            <ComboBox x:Name="cboRotor1"
+                      ItemsSource="{Binding Rotors}"
+                      SelectedIndex="{Binding SelectedRotor1Index, Mode=TwoWay}"
+                      Width="75"/>
+            <StackPanel Orientation="Horizontal">
+                <Label Content="Ringstellung:" />
+                <ComboBox ItemsSource="{Binding Alphabet}"
+                          SelectedIndex="{Binding Rotor1RingStellung, Mode=TwoWay}" />
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <Label Content="Posisjon:" />
+                <ComboBox ItemsSource="{Binding Alphabet}"
+                          SelectedIndex="{Binding Rotor1Position, Mode=TwoWay}" />
+            </StackPanel>
+        </StackPanel>
+        <Button Content="Lagre innstillinger"
+                Command="{Binding SetRotorSettingsCommand}"
+                VerticalAlignment="Bottom"
+                Margin="3 3 "/>
+    </StackPanel>
+</UserControl>
