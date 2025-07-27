@@ -1,13 +1,14 @@
 ﻿using EnigmaComponents.Classes;
 using EnigmaComponents.Interfaces;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Windows;
 
 namespace EnigmaResources.ViewModels
 {
-	/// <summary>
-	/// I deliberately chose to use some german names and expressions.
-	/// </summary>
+    /// <summary>
+    /// I deliberately chose to use some german names and expressions.
+    /// </summary>
     public class MainWindowViewModel : Notifier
     {
         public MainWindowViewModel(ISteckerbrett brett)
@@ -30,14 +31,14 @@ namespace EnigmaResources.ViewModels
         private Umkehrwalze ukw;
         private bool _advancedIsChecked;
 
-#region Properties
+        #region Properties
 
-		/// <summary>
-		/// The rotors are added from right to left, seen from the operator's perspective.
-		/// </summary>
-		public List<Rotor> WalzenLage
+        /// <summary>
+        /// The rotors are added from right to left, seen from the operator's perspective.
+        /// </summary>
+        public List<Rotor> WalzenLage
         {
-            get { return _walzenLage;}
+            get { return _walzenLage; }
         }
 
         public List<string> Rotors { get; private set; }
@@ -75,24 +76,22 @@ namespace EnigmaResources.ViewModels
 
                 if (_advancedIsChecked)
                 {
-                    AdvancedVisibility = Visibility.Visible;
-                    KeyboardVisibility = Visibility.Collapsed;
+                    IsKeyboardVisible = false;
                 }
                 else
                 {
-                    AdvancedVisibility = Visibility.Collapsed;
-                    KeyboardVisibility = Visibility.Visible;
+                    IsKeyboardVisible = true;
                 }
 
-                OnPropertyChanged("AdvancedVisibility");
-                OnPropertyChanged("KeyboardVisibility");
+                OnPropertyChanged("IsKeyboardVisible");
                 OnPropertyChanged("AdvancedIsChecked");
                 OnPropertyChanged("OriginalMessage");
                 OnPropertyChanged("OriginalMessageGUIReadOnly");
+                OnAdvancedIsCheckedChanged(new PropertyChangedEventArgs(nameof(AdvancedIsChecked)));
             }
         }
-        public Visibility AdvancedVisibility { get; set; }
-        public Visibility KeyboardVisibility { get; set; }
+
+        public bool IsKeyboardVisible { get; set; }
         public bool OriginalMessageGUIReadOnly
         {
             get { return !AdvancedIsChecked; }
@@ -101,11 +100,11 @@ namespace EnigmaResources.ViewModels
         public GeneralNoParameterCommand SetRotorSettingsCommand { get; set; }
         public GeneralNoParameterCommand CodeDecodeMessageCommand { get; set; }
 
-#endregion
+        #endregion
 
-		public void SetPluggings(Dictionary<char,char> pluggings)
+        public void SetPluggings(Dictionary<char, char> pluggings)
         {
-            foreach(KeyValuePair<char,char> kvp in pluggings)
+            foreach (KeyValuePair<char, char> kvp in pluggings)
             {
                 _brett.InsertCable(kvp.Key, kvp.Value);
             }
@@ -139,11 +138,11 @@ namespace EnigmaResources.ViewModels
             if (lageToSet == null)
                 return;
 
-			// The rotors are added from right to left, seen from the operator's perspective.
+            // The rotors are added from right to left, seen from the operator's perspective.
             // https://www.cryptomuseum.com/crypto/enigma/working.htm
-            foreach(string walzeNumber in lageToSet)
+            foreach (string walzeNumber in lageToSet)
             {
-                switch(walzeNumber)
+                switch (walzeNumber)
                 {
                     case "I":
                         _walzenLage.Add(new RotorI(_walzenLage.Count + 1));
@@ -172,8 +171,8 @@ namespace EnigmaResources.ViewModels
 
         public void StepRotors()
         {
-			// The original mechanical Enigma machine suffered from the Double stepping anomaly.
-			// This way of ordering the stepping of rotors was chosen to also be able to emulate double stepping of the middle rotor.
+            // The original mechanical Enigma machine suffered from the Double stepping anomaly.
+            // This way of ordering the stepping of rotors was chosen to also be able to emulate double stepping of the middle rotor.
             _walzenLage[2].Step();
             _walzenLage[1].Step();
             _walzenLage[0].Step();
@@ -192,7 +191,7 @@ namespace EnigmaResources.ViewModels
 
             for (int i = 0; i < _walzenLage.Count; i++)
                 encodedChar = _walzenLage[i].ScrambleFromRight(encodedChar);
-            
+
             encodedChar = ukw.ReflectChar(encodedChar);
 
             for (int i = _walzenLage.Count - 1; i >= 0; i--)
@@ -205,14 +204,13 @@ namespace EnigmaResources.ViewModels
         }
 
 
-
         private void InitRotorList()
         {
-            Rotor rI   = new RotorI(null);
-            Rotor rII  = new RotorII(null);
+            Rotor rI = new RotorI(null);
+            Rotor rII = new RotorII(null);
             Rotor rIII = new RotorIII(null);
-            Rotor rIV  = new RotorIV(null);
-            Rotor rV   = new RotorV(null);
+            Rotor rIV = new RotorIV(null);
+            Rotor rV = new RotorV(null);
 
             Rotors = new List<string>();
             Rotors.Add(rI.RotorName.Substring(rI.RotorName.IndexOf('I')));
@@ -246,7 +244,7 @@ namespace EnigmaResources.ViewModels
             SetPositions(positions);
         }
 
-        private void CodeDecodeMessage()
+        public void CodeDecodeMessage()
         {
             OriginalMessage = OriginalMessage.ToUpper();
             OnPropertyChanged(nameof(OriginalMessage));
@@ -263,6 +261,13 @@ namespace EnigmaResources.ViewModels
         {
             SetRotorSettingsCommand = new GeneralNoParameterCommand(SetRotorSettings);
             CodeDecodeMessageCommand = new GeneralNoParameterCommand(CodeDecodeMessage);
+        }
+
+        public event PropertyChangedEventHandler AdvancedIsCheckedChanged;
+
+        protected virtual void OnAdvancedIsCheckedChanged(PropertyChangedEventArgs e)
+        {
+            AdvancedIsCheckedChanged?.Invoke(this, e);
         }
     }
 }

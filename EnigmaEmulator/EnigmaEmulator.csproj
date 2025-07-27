@@ -6,7 +6,6 @@
     <ImportWindowsDesktopTargets>true</ImportWindowsDesktopTargets>
   </PropertyGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\CustomControls\CustomControls.csproj" />
     <ProjectReference Include="..\EnigmaComponents\EnigmaComponents.csproj" />
     <ProjectReference Include="..\EnigmaResources\EnigmaResources.csproj" />
     <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />

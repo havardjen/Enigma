@@ -7,7 +7,8 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <!--<ResourceDictionary Source="pack://application:,,,/YourAssembly;component/Subfolder/YourResourceFile.xaml"/>-->
-                <ResourceDictionary Source="pack://application:,,,/CustomControls;component/Buttons/OldTypewriterTemplates.xaml"/>
+                <!--<ResourceDictionary Source="pack://application:,,,/CustomControls;component/Buttons/OldTypewriterTemplates.xaml"/>-->
+                <ResourceDictionary Source="Buttons/OldTypewriterTemplates.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

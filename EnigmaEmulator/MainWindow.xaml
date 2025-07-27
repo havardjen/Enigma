@@ -13,6 +13,7 @@
                        DockPanel.Dock="Top"
                        Margin="0 15 0 15"/>
         <TextBlock Text="Skriv inn tekst:" 
+                   x:Name="textInputLabel"
                    DockPanel.Dock="Top"
                    Visibility="{Binding AdvancedVisibility}" />
         <TextBox Height="50"
@@ -22,10 +23,11 @@
                  Text="{Binding OriginalMessage, Mode=TwoWay}"
                  IsReadOnly="{Binding OriginalMessageGUIReadOnly}" />
         <Button Content="Kode/Dekode innhold"
+                x:Name="btnCodeDecode"
                 DockPanel.Dock="Top"
                 HorizontalAlignment="Center"
                 Margin="0 5 0 5"
-                Command="{Binding CodeDecodeMessageCommand}"
+                Click="btnCodeDecode_Click"
                 Visibility="{Binding AdvancedVisibility}" />
         <StackPanel Orientation="Vertical"
                     DockPanel.Dock="Top"
