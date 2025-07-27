@@ -11,8 +11,11 @@ namespace EnigmaResources.Model
             Position = position;
         }
 
-        public Rotor Rotor { get; private set; }
-        public string Ringstellung { get; private set; }
-        public string Position { get; private set; }
+
+        public Rotor Rotor { get; set; }
+
+        public string Ringstellung { get; set; }
+
+        public string Position { get; set; }
     }
 }

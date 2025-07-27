@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using EnigmaResources.Model;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EnigmaAPI.Controllers
@@ -13,10 +14,17 @@ namespace EnigmaAPI.Controllers
             return Ok("Welcome to the Enigma API!");
         }
 
-        [HttpGet, Route("CodeDecode")]
-        public ActionResult<string> CodeDecode()
+        [HttpPost, Route("CodeDecode")]
+        public ActionResult<string> CodeDecode([FromBody]EnigmaSettingsDto codingSettings)
         {
-            return Ok("TEST");
+            var rotors = codingSettings.Rotors.Select(r =>
+                new RotorSettings(RotorFactory.Create(r.RotorType, r.RotorNumber),
+                                  r.Ringstellung,
+                                  r.Position)
+            ).ToArray();
+
+            var tmpResults = $"Message: {codingSettings.Message}. Rotor I: {(rotors[0].Rotor.RotorName)}";
+            return Ok(tmpResults);
         }
     }
 }
