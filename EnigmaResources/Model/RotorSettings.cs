@@ -4,15 +4,14 @@ namespace EnigmaResources.Model
 {
     public class RotorSettings
     {
-        public RotorSettings(Rotor rotor, string ringstellung, string position)
+        public RotorSettings(string rotorName, string ringstellung, string position)
         {
-            Rotor = rotor;
+            RotorName = rotorName;
             Ringstellung = ringstellung;
             Position = position;
         }
 
-
-        public Rotor Rotor { get; set; }
+        public string RotorName { get; set; }
 
         public string Ringstellung { get; set; }
 

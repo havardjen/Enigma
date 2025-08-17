@@ -119,7 +119,7 @@ namespace EnigmaResources.ViewModels
             _walzenLage[2].SetPosition(input[2]);
         }
 
-        public void SetRingStellungs(string ringStellungs)
+        public void SetRingStellungen(string ringStellungs)
         {
             char[] input = ringStellungs.ToCharArray();
 
@@ -240,7 +240,7 @@ namespace EnigmaResources.ViewModels
             string positions = Alphabet[Rotor1Position] + Alphabet[Rotor2Position] + Alphabet[Rotor3Position];
 
             SetWalzenlage(walzenlage);
-            SetRingStellungs(ringstellungs);
+            SetRingStellungen(ringstellungs);
             SetPositions(positions);
         }
 

@@ -116,7 +116,7 @@ namespace EnigmaResources.Tests
                                                       };
 
             // Act
-            _viewModel.SetRingStellungs(ringStellungsToSet);
+            _viewModel.SetRingStellungen(ringStellungsToSet);
 
             // Assert
             Assert.Equal(expectedIndexes[0], _viewModel.WalzenLage[0].RingStellung);
@@ -136,7 +136,7 @@ namespace EnigmaResources.Tests
             walzenlageToSet = new List<string> { lage[0], lage[1], lage[2] };
 
             _viewModel.SetWalzenlage(walzenlageToSet);
-            _viewModel.SetRingStellungs(ringStellungs);
+            _viewModel.SetRingStellungen(ringStellungs);
             _viewModel.SetPositions(positions);
 
             // Act
@@ -160,7 +160,7 @@ namespace EnigmaResources.Tests
             walzenlageToSet = new List<string> { lage[0], lage[1], lage[2] };
 
             _viewModel.SetWalzenlage(walzenlageToSet);
-            _viewModel.SetRingStellungs(ringStellungs);
+            _viewModel.SetRingStellungen(ringStellungs);
             _viewModel.SetPositions(positions);
 
             // Act
@@ -185,7 +185,7 @@ namespace EnigmaResources.Tests
             string ringstellungs = "YGM";
 
             _viewModel.SetWalzenlage(walzenlage);
-            _viewModel.SetRingStellungs(ringstellungs);
+            _viewModel.SetRingStellungen(ringstellungs);
             _viewModel.SetPositions(positions);
 
             // Act

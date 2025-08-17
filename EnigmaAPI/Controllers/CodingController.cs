@@ -1,5 +1,6 @@
-﻿using EnigmaResources.Model;
-using Microsoft.AspNetCore.Http;
+﻿using EnigmaComponents.Classes;
+using EnigmaResources.Model;
+using EnigmaResources.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EnigmaAPI.Controllers
@@ -8,6 +9,8 @@ namespace EnigmaAPI.Controllers
     [ApiController]
     public class CodingController : ControllerBase
     {
+        private MainWindowViewModel _vm;
+
         [HttpGet]
         public ActionResult<string> Get()
         {
@@ -15,16 +18,47 @@ namespace EnigmaAPI.Controllers
         }
 
         [HttpPost, Route("CodeDecode")]
-        public ActionResult<string> CodeDecode([FromBody]EnigmaSettingsDto codingSettings)
+        public ActionResult<string> CodeDecode([FromBody]List<RotorSettings> codingSettings, string message)
         {
-            var rotors = codingSettings.Rotors.Select(r =>
-                new RotorSettings(RotorFactory.Create(r.RotorType, r.RotorNumber),
-                                  r.Ringstellung,
-                                  r.Position)
-            ).ToArray();
+            _vm = new MainWindowViewModel(new Steckerbrett());
+            
+            SetWalzenLage(codingSettings);
+            SetRingStellungen(codingSettings);
+            SetPositions(codingSettings);
 
-            var tmpResults = $"Message: {codingSettings.Message}. Rotor I: {(rotors[0].Rotor.RotorName)}";
-            return Ok(tmpResults);
+            _vm.OriginalMessage = message;
+            _vm.CodeDecodeMessage();
+
+            return Ok(_vm.CodedDecodedMessage);
+        }
+
+        private void SetPositions(List<RotorSettings> codingSettings)
+        {
+            string positions = string.Empty;
+            foreach (var s in codingSettings)
+                positions += s.Position;
+
+            _vm.SetPositions(positions);
+        }
+
+        private void SetRingStellungen(List<RotorSettings> codingSettings)
+        {
+            string ringStellungen = string.Empty;
+
+            foreach (var s in codingSettings)
+                ringStellungen += s.Ringstellung;
+
+            _vm.SetRingStellungen(ringStellungen);
+        }
+
+        private void SetWalzenLage(List<RotorSettings> codingSettings)
+        {   
+            var walzenLage = new List<string>();
+
+            foreach (var s in codingSettings)
+                walzenLage.Add(s.RotorName);
+
+            _vm.SetWalzenlage(walzenLage);
         }
     }
 }

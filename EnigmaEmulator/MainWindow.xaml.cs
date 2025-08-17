@@ -15,7 +15,6 @@ namespace EnigmaEmulator
         {
             InitializeComponent();
             _vm = new MainWindowViewModel(new Steckerbrett());
-            //_vm.AdvancedIsChecked = false; // Default to not showing advanced options
             DataContext = _vm;
             keyboard.DataContext = this;
             textInputLabel.DataContext = this;
