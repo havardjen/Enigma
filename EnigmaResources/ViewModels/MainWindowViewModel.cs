@@ -1,7 +1,11 @@
 ﻿using EnigmaComponents.Classes;
 using EnigmaComponents.Interfaces;
+using EnigmaResources.Model;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
+using System.Text.RegularExpressions;
 using System.Windows;
 
 namespace EnigmaResources.ViewModels
@@ -244,15 +248,27 @@ namespace EnigmaResources.ViewModels
             SetPositions(positions);
         }
 
+        public bool MessageContainsInvalidCharacters(string message)
+        {
+            //return !message.All(c => c >= 'A' && c <= 'Z' || c >= 'a' && c <= 'z');
+            return !Regex.IsMatch(message, @"^[a-zA-Z]+$");
+        }
+
         public void CodeDecodeMessage()
         {
-            OriginalMessage = OriginalMessage.ToUpper();
-            OnPropertyChanged(nameof(OriginalMessage));
+            //TODO: Strictly speaking, returing an error message when the message contains invalid characters is not the best way to handle this. It might be a security risk.
+            if (MessageContainsInvalidCharacters(OriginalMessage))
+                CodedDecodedMessage = Messages.InvalidCharacters;
+            else
+            {
+                OriginalMessage = OriginalMessage.ToUpper();
+                OnPropertyChanged(nameof(OriginalMessage));
 
-            CodedDecodedMessage = string.Empty;
+                CodedDecodedMessage = string.Empty;
 
-            foreach (char c in OriginalMessage.ToCharArray())
-                CodedDecodedMessage += EncodeCharacter(c);
+                foreach (char c in OriginalMessage.ToCharArray())
+                    CodedDecodedMessage += EncodeCharacter(c);
+            }
 
             OnPropertyChanged(nameof(CodedDecodedMessage));
         }

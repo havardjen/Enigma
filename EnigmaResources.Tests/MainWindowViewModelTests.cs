@@ -5,6 +5,7 @@ using Xunit;
 using Moq;
 using EnigmaComponents;
 using EnigmaComponents.Interfaces;
+using EnigmaResources.Model;
 
 namespace EnigmaResources.Tests
 {
@@ -198,6 +199,38 @@ namespace EnigmaResources.Tests
             Assert.Equal(expectedEncoded, result);
         }
 
+        [Theory]
+        [InlineData("Gårdsarbeid", true)]
+        [InlineData("DetteErIkkeGyldigØ", true)]
+        [InlineData("ÆKanIkkeBRUKEs", true)]
+        [InlineData("\"Test\"", true)]
+        [InlineData("Test", false)]
+        public void MessageContainsInvalidCharacters_Input_ErrorMessageReturned(string message, bool expectedContains)
+        {
+            // Arrange
+            _viewModel.OriginalMessage = message;
+
+            // Act
+            var containsInvalidCharacters = _viewModel.MessageContainsInvalidCharacters(message);
+
+            // Assert
+            Assert.Equal(expectedContains, containsInvalidCharacters);
+        }
+
+        [Theory]
+        [InlineData("Gårdsarbeid")]
+        [InlineData("\"Test\"")]
+        public void CodeDecodeMessage_InvalidCharacters_ErrorMessageReturned(string message)
+        {
+            // Arrange
+            _viewModel.OriginalMessage = message;
+
+            // Act
+            _viewModel.CodeDecodeMessage();
+
+            // Assert
+            Assert.Equal(Messages.InvalidCharacters, _viewModel.CodedDecodedMessage);
+        }
 
         private char SetRotorPositionBeforeTurnover(Rotor rotorToStep)
         {
